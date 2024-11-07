@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Usage Awareness</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url(img.jpg) no-repeat center center/cover;
+            background-size: cover;
+            background-attachment: fixed; /* Keep the background image fixed */
+            color: white;
+            scroll-behavior: smooth;
+            box-sizing: border-box; /* Ensures padding doesn’t add extra width */
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #f0f0f0;
+        }
+
+        nav a {
+            color: #f0f0f0;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #5DADE2;
+            text-decoration: underline;
+        }
+
+        /* Section styles */
+        section {
+    padding: 50px 20px 30px;  /* Added bottom padding of 30px */
+    margin-top: 60px; /* To avoid header overlap */
+    min-height: 60vh; /* Ensures at least 60% of the viewport height */
+    display: flex; /* Flexbox for centering content */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+        h1 {
+            color: #f0f0f0;
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #f0f0f0;
+        }
+
+        /* Styles for calculator section */
+        #calculator select, #calculator input {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: rgba(32, 126, 189, 0.264);
+            color: white;
+            padding: 10px 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: rgba(52, 152, 219, 0.4);
+        }
+
+        /* Counter text */
+        .counter {
+            font-size: 48px;
+            font-weight: bold;
+            color: #f0f0f0;
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header with navigation links -->
+    <header>
+        <h2>Electricity Awareness Project</h2>
+        <nav>
+            <a href="#awareness">Electricity Usage Awareness</a>
+            <a href="#calculator">Power Usage Calculator</a>
+            <a href="#global-usage">Global Electricity Usage</a>
+        </nav>
+    </header>
+
+    <!-- Awareness Section -->
+    <section id="awareness">  <h1>Understanding Electricity Usage & Wastage</h1>
+        
+        <p>Electricity powers our daily lives, fueling our homes, businesses, and industries. However, the increasing global demand for electricity has raised concerns about its environmental and financial impacts. Every unit of electricity used requires resources, often resulting in emissions that affect our planet's health.</p>
+
+        <p>One of the major sources of electricity wastage is from appliances and devices left in standby mode or plugged in when not in use. Standby power can account for up to 10% of an average household’s electricity bill, leading to unnecessary energy consumption and higher costs.</p>
+
+        <p>Simple changes, like turning off lights in empty rooms, unplugging idle devices, and investing in energy-efficient appliances, can make a significant difference. Additionally, practicing mindful electricity usage can reduce household expenses and contribute to a more sustainable future.</p>
+
+        <p>Reducing electricity wastage not only benefits individual finances but also contributes to environmental conservation. Small actions, when practiced consistently by millions, can reduce the strain on power plants, lower greenhouse gas emissions, and support global efforts against climate change.</p>
+
+        <p>Awareness is the first step toward meaningful change. By understanding our electricity consumption patterns, we can make smarter choices to conserve energy and protect our planet for future generations.</p>
+    
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator">
+        <h1>Electricity Usage Calculator</h1>
+        <p>Select a device and specify its usage time (in hours):</p>
+        <div id="device-container">
+            <div class="device-entry">
+                <label for="device">Device:</label>
+                <select id="device">
+                    <option value="60">Light Bulb (60W)</option>
+                    <option value="100">Ceiling Fan (100W)</option>
+                    <option value="1500">Air Conditioner (1500W)</option>
+                    <option value="120">TV (120W)</option>
+                    <option value="2000">Heater (2000W)</option>
+                    <option value="500">Computer (500W)</option>
+                </select>
+                <label for="hours">Usage Time (hours):</label>
+                <input type="number" id="hours" min="1" value="1">
+            </div>
+        </div>
+        <button onclick="addDeviceUsage()">Add Device Usage</button>
+        <button onclick="calculateTotalWattage()">Calculate Total Usage</button>
+        <button onclick="clearDevices()">Clear Devices</button>
+        <div id="result"></div>
+    </section>
+
+    <!-- Global Usage Section -->
+    <section id="global-usage">
+        <h1>Real-Time Global Electricity Usage</h1>
+        <p>Current electricity consumption (in kWh):</p>
+        <div class="counter" id="counter">0</div>
+    </section>
+
+    <script>
+        let deviceUsage = [];
+
+        function addDeviceUsage() {
+            const device = document.getElementById('device').value;
+            const hours = document.getElementById('hours').value;
+            deviceUsage.push({ wattage: device, hours: hours });
+            updateDeviceList();
+        }
+
+        function updateDeviceList() {
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = "<h3>Added Devices:</h3>";
+            deviceUsage.forEach((entry, index) => {
+                resultDiv.innerHTML += "Device " + (index + 1) + ": " + entry.wattage + "W for " + entry.hours + " hours<br>";
+            });
+        }
+
+        function calculateTotalWattage() {
+            let totalWattage = deviceUsage.reduce((total, entry) => total + entry.wattage * entry.hours, 0);
+            document.getElementById('result').innerHTML = "<strong>Total power consumption: " + totalWattage + " Watt-hours</strong>";
+        }
+
+        function clearDevices() {
+            deviceUsage = [];
+            document.getElementById('result').innerHTML = "";
+        }
+
+        let counter = 500000000;
+        const increment = 12345;
+
+        function updateCounter() {
+            counter += increment;
+            document.getElementById('counter').innerText = counter.toLocaleString();
+        }
+
+        setInterval(updateCounter, 1000);
+    </script>
+</body>
+</html>
